@@ -1,0 +1,54 @@
+-- PROCEDURE: hms.inserthmsuserdetails(bigint, bigint, bigint, integer, text, text, text, character varying)
+
+ --DROP PROCEDURE IF EXISTS hms.inserthmsuserdetails(bigint, bigint, bigint, integer, text, text, text, character varying);
+
+CREATE OR REPLACE PROCEDURE hms.inserthmsuserdetails(
+	p_integrationuserid bigint,
+	p_partnerintegrationid bigint,
+	p_attemptid bigint,
+	p_roleid integer,
+	p_extension1 text DEFAULT ''::text,
+	p_extension2 text DEFAULT ''::text,
+	p_extension3 text DEFAULT ''::text,
+	p_UserCode character varying DEFAULT ''::character varying,
+	p_OrgCode character varying DEFAULT ''::character varying,
+	INOUT p_status character varying DEFAULT ''::character varying)
+LANGUAGE 'plpgsql'
+AS $BODY$
+DECLARE
+  v_ErrorDetail TEXT;
+  v_Exception TEXT;
+ err_msg text;
+ profiler text;  
+ 
+BEGIN
+
+	IF NOT EXISTS(SELECT 1 FROM HMS.HmsUserDetails WHERE AttemptId=p_AttemptId AND PartnerIntegrationId=p_PartnerIntegrationId AND Isdeleted=0)
+	THEN
+           	INSERT INTO HMS.HmsUserDetails(IntegrationUserId,PartnerIntegrationId,AttemptId,RoleId,Extension1,Extension2,Extension3,p_Extension3,UserCode,OrgCode)
+		    SELECT p_IntegrationUserId,p_PartnerIntegrationId,p_AttemptId,p_RoleId,p_Extension1,p_Extension2,p_Extension3,p_UserCode,p_OrgCode;
+
+			p_Status:='S001';
+			RETURN;
+	END IF;
+	EXCEPTION
+        WHEN OTHERS THEN
+            p_Status := 'F001';
+		
+			err_msg:=SQLERRM;
+			
+														  
+			profiler := 'CALL hms.inserthmsuserdetails(' ||cast(p_integrationuserid as varchar)||','||
+														  cast(p_partnerintegrationid as varchar)||','||
+														  cast(p_attemptid as varchar)||','||
+														  cast(p_roleid as varchar)||','||
+														  coalesce(par_extension1 ,'' )||','||
+														  coalesce(par_extension2,''  )||','||
+														  coalesce(par_extension3 ,'' )||','||')';
+	
+			CALL dbo.inserterrorlog('hms.inserthmsuserdetails'::text,profiler::text,err_msg::text);
+END
+$BODY$;
+
+ALTER PROCEDURE hms.inserthmsuserdetails(bigint, bigint, bigint, integer, text, text, text, character varying)
+    OWNER TO balaji;

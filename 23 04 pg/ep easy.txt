@@ -1,0 +1,275 @@
+--role
+select * from rpt.tblrole --roleid
+select * from rpt.privilages --preid
+select * from rpt.roletoprivilages --roelid,preid
+
+--user
+select * from rpt.tblusers --usrid,login
+select * from rpt.tblOrganisation --orgid
+select * from rpt.tblOrganisationConfiguration--ogrid
+
+--schedule 
+select * from rpt.tblSchedule --schdid,
+select * from rpt.tblScheduleDetails  --schdid,
+select * from rpt.tblScheduleUser --schduserid(pid),
+--select * from rpt.studentscheduledetail --schduserid ,[tagging]
+--select * from rpt.tblschedulenamedetails --schdid,schdname,schddetid
+
+--proctor 
+select * from rpt.tblproctoravail --procavailId
+select * from rpt.tblproctoravailauditlog -- Id ,Emailid
+select * from rpt.tblproctoronlinereview --studschdid
+--select * from rpt.tblproctoringtype --id,type
+
+
+--live mode proc tag
+select * from rpt.tblStudentScheduleDetails--pid, procavailid
+select * from rpt.TblScheduleAssessmentProctorAvailAuditlog--schdusrid(pid)
+
+--assessments
+select * from rpt.tblTestNameInformation --testinfoid
+select * from rpt.tbltestdetails --testdetailid,
+select * from rpt.tblTestAttempts--testdetailid,attemptid,
+select * from rpt.tblTestAssignment -- testdetailid,
+--reviewstatus 0 pending reviewstatus 1 approve 2 reject
+select * from rpt.tblSubmissionQueue -- attid,
+
+-------------------------------
+select firstname,ssd.orgid
+from rpt.tblStudentScheduleDetails ssd 
+inner join rpt.tblScheduleUser sud on ssd.partnerintegrationid :: bigint= sud.scheduleuserid 
+inner join rpt.tblusers u on sud.loginname = u.loginname 
+inner join rpt.tblorganisation o on ssd.orgid = o.organisationid
+where o.organisationid = 1
+
+--------------------------------
+
+select * 
+from rpt.tblproctoravail tpa 
+inner join rpt.tblStudentScheduleDetails ssd on tpa.proctoravailid = ssd.proctoravailid
+inner join rpt.tblTestNameInformation ttn on ssd.testnameinformationid = ttn.testnameinformationid
+inner join rpt.tbltestdetails ttd on ssd.partnerintegrationid = ttd.partnerintegrationid
+
+---------------------------------
+
+select * 
+from rpt.tbltestassignment ta
+inner join rpt.tblusers tu on ta.userid = tu.userid
+inner join rpt.tbltestdetails td on ta.testdetailid = td.testdetailid
+inner join rpt.tblTestNameInformation tni on td.testnameinformationid = tni.testnameinformationid
+inner join rpt.tblorganisation o on td.organisationid = o.organisationid
+
+----------------------------------
+
+select * 
+from rpt.tbltestassignment ta
+inner join rpt.tbltestdetails td on ta.testdetailid = ta.testdetailid
+inner join rpt.tblorganisation o on td.organisationid = o.organisationid
+
+-----------------------------------
+
+select * 
+from rpt.tblstudentscheduledetails ssd 
+inner join rpt.tblproctoravail tpa on ssd.proctoravailid = tpa.proctoravailid
+inner join rpt.tblusers tu on tpa.userid = tu.userid
+inner join rpt.tblorganisation o on ssd.orgid = o.organisationid
+
+------------------------------------
+
+select * 
+from rpt.tbltestdetails ttd 
+inner join rpt.tbltestnameinformation ttni on ttd.testnameinformationid = ttni.testnameinformationid
+inner join rpt.tblTestAttempts tta on ttd.testdetailid = tta.testdetailsid
+inner join rpt.tblsubmissionqueue ttsq on tta.attemptid = ttsq.attemptid
+inner join rpt.tblscheduleuser tsu on ttd.partnerintegrationid :: bigint= tsu.scheduleuserid
+inner join rpt.tblScheduleDetails tsd on tsu.scheduledetailid = tsd.scheduledetailid
+inner join rpt.tblschedule ts on tsd.scheduleid = ts.scheduleid
+
+--------------------------------------
+
+select * 
+from rpt.tblproctoravail tpa 
+inner join rpt.tblstudentscheduledetails tssd on tssd.proctoravailid = tpa.proctoravailid
+inner join rpt.tbltestnameinformation ttni on tssd.testnameinformationid = ttni.testnameinformationid
+inner join rpt.tblorganisation o on tssd.orgid = o.organisationid
+inner join rpt.tblproctoronlinereview topr on tssd.studscheduleid = topr.studscheduleid
+
+----------------------------------------
+
+select * 
+from rpt.tbltestdetails ttd 
+inner join rpt.tbltestattempts tta on ttd.testdetailid = tta.testdetailsid
+inner join rpt.tblsubmissionqueue tsq on tta.attemptid = tsq.attemptid
+inner join rpt.tblorganisation o on ttd.organisationid = o.organisationid
+
+------------------------------------------
+
+select * 
+from rpt.tbltestdetails ttd 
+inner join rpt.tbltestattempts tta on ttd.testdetailid = tta.testdetailsid 
+inner join rpt.tbltestnameinformation ttni on ttd.testnameinformationid = ttni.testnameinformationid
+inner join rpt.tblsubmissionqueue tsq on tta.attemptid = tsq.attemptid
+inner join rpt.tbltestassignment ta on tta.testdetailsid = ta.testdetailid
+inner join rpt.tblusers tu on ta.userid = tu.userid
+inner join rpt.tblorganisation o on tu.organisationid = o.organisationid
+
+----------------------------------------------
+
+select * 
+from rpt.tbltestdetails ttd 
+inner join rpt.tbltestattempts tta on ttd.testdetailid = tta.testdetailsid
+inner join rpt.tblTestNameInformation ttni on ttd.testnameinformationid = ttni.TestNameInformationid
+inner join rpt.tbltestassignment ta on tta.testdetailsid = ta.testdetailid
+inner join rpt.tblusers tu on ta.userid = tu.userid
+
+------------------------------------------------
+
+select * 
+from rpt.tbltestdetails ttd 
+inner join rpt.tblorganisation o on ttd.organisationid = o.organisationid
+inner join rpt.tbltestattempts ta on ttd.testdetailid = ta.testdetailsid
+
+-----------------------------------------------
+
+select * 
+from rpt.tblschedule ts
+inner join rpt.tblscheduledetails tsd on ts.scheduleid = tsd.scheduleid
+inner join rpt.tblscheduleuser tsu on tsd.scheduledetailid = tsu.scheduledetailid
+
+----------------------------------------------
+
+select * 
+from rpt.tblstudentscheduledetails tssd 
+inner join rpt.tblscheduleuser tsu on tssd.partnerintegrationid ::bigint= tsu.scheduleuserid
+inner join rpt.tblusers tu on tsu.loginname = tu.loginname
+
+---------------------------------------------
+
+select * 
+from rpt.tblproctoravail tpa 
+inner join rpt.tblStudentScheduleDetails tssd on tpa.proctoravailid = tssd.proctoravailid
+inner join rpt.tblTestNameInformation ttni on tssd.testnameinformationid = ttni.testnameinformationid
+inner join rpt.tblorganisation o on tssd.orgid = o.organisationid
+inner join rpt.tbltestdetails ttd on tssd.partnerintegrationid = ttd.partnerintegrationid
+inner join rpt.tblScheduleUser tsu on ttd.partnerintegrationid ::bigint = tsu.scheduleuserid
+inner join rpt.tblusers tu on tsu.loginname = tu.loginname
+--inner join rpt.tblorganisation o on tu.organisationid = o.organisationid
+
+--------------------------------------------
+
+select * 
+from rpt.tblusers tu
+inner join rpt.tbltestassignment tta on tu.userid = tta.userid
+inner join rpt.tbltestdetails ttd on tta.testdetailid = ttd.testdetailid  
+inner join rpt.tbltestnameinformation tti on ttd.testnameinformationid = tti.testnameinformationid
+inner join rpt.tblorganisation o on ttd.organisationid = o.organisationid
+
+--------------------------------------------
+
+select distinct (firstname),organisationname
+from rpt.tblusers u
+inner join rpt.tblorganisation o on u.organisationid = u.organisationid
+
+---------------------------------------------
+
+select * 
+from rpt.tblschedule ts 
+inner join rpt.tblscheduledetails tsd on ts.scheduleid = tsd.scheduleid
+inner join rpt.tblorganisation o on ts.organizationcode = o.organizationcode
+inner join rpt.tblusers u on o.organisationid = u.organisationid
+
+---------------------------------------------
+
+select * 
+from rpt.tblscheduleuser tsu 
+inner join rpt.tblusers tu on tsu.studentuserid = tu.userid
+inner join rpt.tblscheduledetails tsd on tsu.scheduledetailid = tsd.scheduledetailid
+inner join rpt.tblschedule ts on tsd.scheduleid = ts.scheduleid
+
+---------------------------------------------
+
+select * 
+from rpt.tbltestdetails ttd 
+inner join rpt.tblorganisation o on ttd.organisationid = o.organisationid
+inner join rpt.tbltestattempts tta on ttd.testdetailid = tta.testdetailsid
+inner join rpt.tbltestAssignment ta on tta.testdetailsid = ta.testdetailid
+inner join rpt.tblSubmissionQueue tsq on tta.attemptid = tsq.attemptid
+inner join rpt.tblscheduleuser tsu on ttd.partnerintegrationid ::bigint= tsu.scheduleuserid
+inner join rpt.tblScheduleDetails tsd on tsu.scheduledetailid = tsd.scheduledetailid
+inner join rpt.tblvideojson tvj on tta.attemptid = tvj.attemptid
+
+---------------------------------------------
+
+select * 
+from rpt.tbltestdetails ttd 
+inner join rpt.tbltestattempts tta on ttd.testdetailid = tta.testdetailsid
+inner join rpt.tbltestnameinformation ttni on ttd.testnameinformationid = ttni.testnameinformationid
+inner join rpt.tblsubmissionqueue tsq on tta.attemptid = tsq.attemptid
+inner join rpt.tbltestassignment ta on ttd.testdetailid = ta.testdetailid 
+inner join rpt.tblusers tu on ta.userid = tu.userid
+inner join rpt.tblvideojson tvj on tta.attemptid = tvj.attemptid
+
+-----------------------------------------------
+
+select * 
+from rpt.tblstudentscheduledetails tssd 
+inner join rpt.tblproctoravail tpa on tssd.proctoravailid = tpa.proctoravailid  
+inner join rpt.tblusers tu on tu.userid = tpa.userid
+inner join rpt.tblorganisation o on tu.organisationid = o.organisationid
+
+-------------------------------------------------
+
+select * 
+from rpt.tbltestdetails ttd
+inner join rpt.tblorganisation o on ttd.organisationid = o.organisationid
+inner join rpt.tbltestattempts tta on ttd.testdetailid = tta.testdetailsid
+inner join rpt.tblsubmissionqueue tsq on tta.attemptid = tsq.attemptid
+
+---------------------------------------------------
+
+select * 
+from rpt.tbltestassignment tta 
+inner join rpt.tblusers tu on tta.userid = tu.userid
+inner join rpt.tbltestdetails ttd on tta.testdetailid = ttd.testdetailid
+inner join rpt.tbltestnameinformation ttni on ttd.testnameinformationid = ttni.testnameinformationid
+inner join rpt.tblorganisation o on tu.organisationid  = o.organisationid 
+
+----------------------------------------------------
+
+select * 
+from rpt.tbltestassignment tta 
+inner join rpt.tbltestdetails ttd on tta.testdetailid  = ttd.testdetailid 
+inner join rpt.tblorganisation o on ttd.organisationid = o.organisationid 
+
+-----------------------------------------------------
+---------------------------------------------------------------
+SELECT TestName, StudentName, TD.PartnerIntegrationId, TA.AttemptId,SH.Status HeadshotStatus,ProctoringType Mode
+		FROM RPT.tblStudentHeadshotDetails SH
+		INNER JOIN RPT.tblTestAttempts TA ON TA.AttemptId=SH.Attemptid AND ISNULL(TA.VideoCode,'')<>''
+		INNER JOIN RPT.tblTestDetails TD ON TD.TestDetailId=TA.TestDetailsId AND TA.isdeleted=0 AND TD.isdeleted=0
+		INNER JOIN RPT.tblTestNameInformation TN ON ISNULL(TD.Extension1,TD.TestNameInformationId)=TN.TestNameInformationId AND TA.isdeleted=0 AND TN.isdeleted=0
+		LEFT JOIN RPT.tblScheduleUser SU ON SU.ScheduleUserID=TD.PartnerIntegrationID AND SU.Isdeleted=0
+		LEFT JOIN RPT.tblScheduleDetails SD ON SD.ScheduleDetailID=SU.ScheduleDetailID AND SD.Isdeleted=0
+		WHERE CAST(SD.StartDate AS DATE)=@Date AND (SH.Status = @HeadShotStatus OR ISNULL(@HeadShotStatus,'') = '
+
+-----------------------------------------------------------------
+
+FROM RPT.tblTestDetails TD 
+			INNER JOIN RPT.tblScheduleUser SU ON SU.ScheduleUserID=TD.PartnerIntegrationID AND TD.isdeleted=0 AND SU.Isdeleted=0
+			INNER JOIN RPT.tblScheduleDetails SD ON SD.ScheduleDetailID=SU.ScheduleDetailID AND SD.Isdeleted=0
+			INNER JOIN RPT.tblTestNameInformation TN ON TN.TestNameInformationId=TD.TestNameInformationId
+			INNER JOIN RPT.tblTestAttempts TA ON TA.TestDetailsId=TD.TestDetailId AND TA.isdeleted=0
+			INNER JOIN RPT.tblSubmissionQueue SQ ON SQ.AttemptId=TA.AttemptId AND SQ.IsDeleted=0
+			WHERE ISNULL(TD.UpdatedDate,TD.CreatedDate) BETWEEN @StartDate AND @EndDate 
+			AND TD.OrganisationId=@OrganizationID
+
+-------------------------------------------------------------------
+
+RPT.tblStudentScheduleDetails SSD
+		INNER JOIN RPT.TblScheduleAssessmentProctorAvailAuditlog SAP ON SAP.SchdUserID=SSD.PartnerIntegrationId AND SSD.IsDeleted=0
+		INNER JOIN RPT.tblProctorAvail PA ON PA.ProctorAvailId=SSD.ProctorAvailID AND PA.IsDeleted=0 AND SAP.Isdeleted=0
+		INNER JOIN RPT.tblUsers U ON U.UserID=PA.UserId AND U.IsDeleted=0
+
+
+--------------------------------------------------------------------
+

@@ -1,0 +1,29 @@
+IF NOT EXISTS (SELECT 1 FROM [dbo].[DomainSkills] WHERE [DomainName] = 'Language and Literacy Development')
+BEGIN
+    INSERT INTO [dbo].[DomainSkills] ([DomainName], [Isdeleted], [Createdby], [Modifiedby], [CreatedDate], [ModifiedDate])
+    VALUES ('Language and Literacy Development', 0, NULL, NULL, GETDATE(), NULL);
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[DomainSkills] WHERE [DomainName] = 'Physical Development')
+BEGIN
+    INSERT INTO [dbo].[DomainSkills] ([DomainName], [Isdeleted], [Createdby], [Modifiedby], [CreatedDate], [ModifiedDate])
+    VALUES ('Physical Development', 0, NULL, NULL, GETDATE(), NULL);
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[DomainSkills] WHERE [DomainName] = 'Language and Literacy Development, Physical Development')
+BEGIN
+    INSERT INTO [dbo].[DomainSkills] ([DomainName], [Isdeleted], [Createdby], [Modifiedby], [CreatedDate], [ModifiedDate])
+    VALUES ('Language and Literacy Development, Physical Development', 0, NULL, NULL, GETDATE(), NULL);
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[DomainSkills] WHERE [DomainName] = 'Cognitive Development')
+BEGIN
+    INSERT INTO [dbo].[DomainSkills] ([DomainName], [Isdeleted], [Createdby], [Modifiedby], [CreatedDate], [ModifiedDate])
+    VALUES ('Cognitive Development', 0, NULL, NULL, GETDATE(), NULL);
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[DomainSkills] WHERE [DomainName] = 'Physical Development, Cognitive Development')
+BEGIN
+    INSERT INTO [dbo].[DomainSkills] ([DomainName], [Isdeleted], [Createdby], [Modifiedby], [CreatedDate], [ModifiedDate])
+    VALUES ('Physical Development, Cognitive Development', 0, NULL, NULL, GETDATE(), NULL);
+END

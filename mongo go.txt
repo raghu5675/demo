@@ -1,0 +1,511 @@
+use bike
+switched to db bike
+db.bike.find({review: {name: "raghu"}}).pretty()
+db.bike.find({name: {$nin: ["honda", "bajaj"]}}).pretty() 
+{
+  _id: ObjectId('661f518c752fc7ddc7b9f6c6'),
+  id: 2,
+  name: ' KAWISAKI',
+  model: 2018
+}
+{
+  _id: ObjectId('661f5138752fc7ddc7b9f6c5'),
+  id: 1,
+  name: 'NINJA900',
+  model: 2020,
+  price: '1252688'
+}
+{
+  _id: ObjectId('661fbd8f8a8b3ebaf39803fb'),
+  id: 108,
+  name: [
+    'a',
+    'b'
+  ]
+}
+{
+  _id: ObjectId('661fbddc8a8b3ebaf39803fc'),
+  id: 108,
+  name: [
+    'a',
+    'b',
+    'c'
+  ]
+}
+{
+  _id: ObjectId('661f6dee752fc7ddc7b9f6ca'),
+  id: 10,
+  name: 'benali',
+  price: 100000
+}
+{
+  _id: ObjectId('661f535c752fc7ddc7b9f6c8'),
+  id: 4,
+  name: 'bmw',
+  model: 2020
+}
+{
+  _id: ObjectId('661f7b6d0b73fc497722b375'),
+  id: 101,
+  name: 'hero',
+  model: 2022,
+  price: 80000
+}
+{
+  _id: ObjectId('661fb80c8a8b3ebaf39803f9'),
+  id: 105,
+  name: 'yamaha',
+  model: 2023,
+  review: [
+    {
+      name: 'yash',
+      body: 'good performence '
+    }
+  ]
+}
+
+db.bike.find({name: {$in: ["bajaj", "honda"]}}).pretty()
+{
+  _id: ObjectId('661fb8ab8a8b3ebaf39803fa'),
+  id: 106,
+  name: 'bajaj',
+  model: 2024,
+  review: {
+    name: 'raghu ',
+    comm: 'good bike'
+  }
+}
+{
+  _id: ObjectId('661f535c752fc7ddc7b9f6c7'),
+  id: 3,
+  name: 'honda',
+  model: 2021
+}
+{
+  _id: ObjectId('661f7008752fc7ddc7b9f6cc'),
+  id: 13,
+  name: 'honda',
+  price: 322
+}
+{
+  _id: ObjectId('661f95ec752fc7ddc7b9f6cd'),
+  id: 102,
+  name: [
+    'hero',
+    'honda'
+  ],
+  model: 2021,
+  price: 598858
+}
+db.bike.find({price: {$lt: 2000}}).pretty()
+{
+  _id: ObjectId('661f7008752fc7ddc7b9f6cc'),
+  id: 13,
+  name: 'honda',
+  price: 322
+}
+db.bike.find({model: {$eq: 2022}}).pretty()
+{
+  _id: ObjectId('661f7b6d0b73fc497722b375'),
+  id: 101,
+  name: 'hero',
+  model: 2022,
+  price: 80000
+}
+db.bike.find({salary: {$gt: 1000}}).pretty()
+db.bike.find({price: {$gt: 1000}}).pretty()
+{
+  _id: ObjectId('661f6dee752fc7ddc7b9f6ca'),
+  id: 10,
+  name: 'benali',
+  price: 100000
+}
+{
+  _id: ObjectId('661f7b6d0b73fc497722b375'),
+  id: 101,
+  name: 'hero',
+  model: 2022,
+  price: 80000
+}
+{
+  _id: ObjectId('661f95ec752fc7ddc7b9f6cd'),
+  id: 102,
+  name: [
+    'hero',
+    'honda'
+  ],
+  model: 2021,
+  price: 598858
+}
+db.bike.insertOne({id:123,price1:123456 ,price2:123456,name : 'firefox'})
+{
+  acknowledged: true,
+  insertedId: ObjectId('6620f6ca47509b202f85481a')
+}
+db.bike.aggregate([{$match: {name: "firefox"}},
+... {$cmp:["$firefox.price", "$firefox.price"]}])
+TypeError: {(intermediate value)} is not iterable
+db.bike.find({$and: [{name: "honda"}, {model: 2020}]}).pretty()
+db.bike.find({$or: [{name: "honda"}, {model: 2020}]}).pretty()
+{
+  _id: ObjectId('661f5138752fc7ddc7b9f6c5'),
+  id: 1,
+  name: 'NINJA900',
+  model: 2020,
+  price: '1252688'
+}
+{
+  _id: ObjectId('661f535c752fc7ddc7b9f6c7'),
+  id: 3,
+  name: 'honda',
+  model: 2021
+}
+{
+  _id: ObjectId('661f535c752fc7ddc7b9f6c8'),
+  id: 4,
+  name: 'bmw',
+  model: 2020
+}
+{
+  _id: ObjectId('661f7008752fc7ddc7b9f6cc'),
+  id: 13,
+  name: 'honda',
+  price: 322
+}
+{
+  _id: ObjectId('661f95ec752fc7ddc7b9f6cd'),
+  id: 102,
+  name: [
+    'hero',
+    'honda'
+  ],
+  model: 2021,
+  price: 598858
+}
+db.bike.find({$and: [{name: "honda"}, {model: 2021}]}).pretty()
+{
+  _id: ObjectId('661f535c752fc7ddc7b9f6c7'),
+  id: 3,
+  name: 'honda',
+  model: 2021
+}
+{
+  _id: ObjectId('661f95ec752fc7ddc7b9f6cd'),
+  id: 102,
+  name: [
+    'hero',
+    'honda'
+  ],
+  model: 2021,
+  price: 598858
+}
+db.Employee.updateOne({"name.first": "Om"}, 
+                      {$currentDate: {joiningDate: true}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.bike.insertOne({name :"raghu",currentdate : '12-04-2022'})
+{
+  acknowledged: true,
+  insertedId: ObjectId('6620f8dc47509b202f85481b')
+}
+db.biek.updateOne({"name": "raghu"}, 
+                      {$currentDate: {currentdate : true}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.biek.update({"name": "honda"}, 
+                   {$inc: {"price": 3000}})
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.biek.update({"name": "raghu"}, 
+                      {$currentDate: {currentdate : true}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.biek.update({"name": "honda"}, 
+                   {$inc: {"price": 3000}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.biek.update({"name": "NINJA900"}, 
+                   {$inc: {"price": 3000}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.biek.update({"name": "NINJA900"}, 
+                   {$inc: {"price": 3000}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.biek.update({name: "NINJA900"}, 
+                   {$inc: {"price": 3000}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.bike.aggregate(
+ {$concat: ["My department is: ", "$department"]})
+MongoServerError[Location40324]: Unrecognized pipeline stage name: '$concat'
+db.bike.aggregate(
+ {$concat: ["My department is: ", "department"]})
+MongoServerError[Location40324]: Unrecognized pipeline stage name: '$concat'
+db.bike.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { name: 1 }, name: 'name_1' }
+]
+db.bike.aggregate([
+  { $group: { _id: "name", price: { $sum: 1 } } }
+])
+{
+  _id: 'name',
+  price: 14
+}
+db.bike.aggregate([
+  { $group: { _id: "$name", price: { $sum: 1 } } }
+])
+{
+  _id: 'hero',
+  price: 1
+}
+{
+  _id: [
+    'a',
+    'b',
+    'c'
+  ],
+  price: 1
+}
+{
+  _id: [
+    'a',
+    'b'
+  ],
+  price: 1
+}
+{
+  _id: ' KAWISAKI',
+  price: 1
+}
+{
+  _id: 'firefox',
+  price: 1
+}
+{
+  _id: 'bmw',
+  price: 1
+}
+{
+  _id: 'raghu',
+  price: 1
+}
+{
+  _id: [
+    'hero',
+    'honda'
+  ],
+  price: 1
+}
+{
+  _id: 'honda',
+  price: 2
+}
+{
+  _id: 'NINJA900',
+  price: 1
+}
+{
+  _id: 'benali',
+  price: 1
+}
+{
+  _id: 'yamaha',
+  price: 1
+}
+{
+  _id: 'bajaj',
+  price: 1
+}
+db.bike.aggregate([
+  { $sort: { price: -1 } }
+])
+{
+  _id: ObjectId('661f5138752fc7ddc7b9f6c5'),
+  id: 1,
+  name: 'NINJA900',
+  model: 2020,
+  price: '1252688'
+}
+{
+  _id: ObjectId('661f95ec752fc7ddc7b9f6cd'),
+  id: 102,
+  name: [
+    'hero',
+    'honda'
+  ],
+  model: 2021,
+  price: 598858
+}
+{
+  _id: ObjectId('661f6dee752fc7ddc7b9f6ca'),
+  id: 10,
+  name: 'benali',
+  price: 100000
+}
+{
+  _id: ObjectId('661f7b6d0b73fc497722b375'),
+  id: 101,
+  name: 'hero',
+  model: 2022,
+  price: 80000
+}
+{
+  _id: ObjectId('661f7008752fc7ddc7b9f6cc'),
+  id: 13,
+  name: 'honda',
+  price: 322
+}
+{
+  _id: ObjectId('661f518c752fc7ddc7b9f6c6'),
+  id: 2,
+  name: ' KAWISAKI',
+  model: 2018
+}
+{
+  _id: ObjectId('661f535c752fc7ddc7b9f6c7'),
+  id: 3,
+  name: 'honda',
+  model: 2021
+}
+{
+  _id: ObjectId('661f535c752fc7ddc7b9f6c8'),
+  id: 4,
+  name: 'bmw',
+  model: 2020
+}
+{
+  _id: ObjectId('661fb80c8a8b3ebaf39803f9'),
+  id: 105,
+  name: 'yamaha',
+  model: 2023,
+  review: [
+    {
+      name: 'yash',
+      body: 'good performence '
+    }
+  ]
+}
+{
+  _id: ObjectId('661fb8ab8a8b3ebaf39803fa'),
+  id: 106,
+  name: 'bajaj',
+  model: 2024,
+  review: {
+    name: 'raghu ',
+    comm: 'good bike'
+  }
+}
+{
+  _id: ObjectId('661fbd8f8a8b3ebaf39803fb'),
+  id: 108,
+  name: [
+    'a',
+    'b'
+  ]
+}
+{
+  _id: ObjectId('661fbddc8a8b3ebaf39803fc'),
+  id: 108,
+  name: [
+    'a',
+    'b',
+    'c'
+  ]
+}
+{
+  _id: ObjectId('6620f6ca47509b202f85481a'),
+  id: 123,
+  price1: 123456,
+  price2: 123456,
+  name: 'firefox'
+}
+{
+  _id: ObjectId('6620f8dc47509b202f85481b'),
+  name: 'raghu',
+  currentdate: '12-04-2022'
+}
+db.bike.aggregate([
+  { $sort: { price: -1 } },
+  { $limit: 3 }
+])
+{
+  _id: ObjectId('661f5138752fc7ddc7b9f6c5'),
+  id: 1,
+  name: 'NINJA900',
+  model: 2020,
+  price: '1252688'
+}
+{
+  _id: ObjectId('661f95ec752fc7ddc7b9f6cd'),
+  id: 102,
+  name: [
+    'hero',
+    'honda'
+  ],
+  model: 2021,
+  price: 598858
+}
+{
+  _id: ObjectId('661f6dee752fc7ddc7b9f6ca'),
+  id: 10,
+  name: 'benali',
+  price: 100000
+}
+db.bike.count({name:{$gt:1}})
+DeprecationWarning: Collection.count() is deprecated. Use countDocuments or estimatedDocumentCount.
+0
+db.bike.count({price:{$gt:10000}})
+3
+db.bike.update({name: "honda"}, {$max: {price: 5000}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+

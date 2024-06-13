@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neat Table Representation</title>
+    <style>
+        /* Add CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        caption {
+            text-align: left;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Table -->
+    <table>
+        <caption>Table I</caption>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Login Name</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tfoot>
+           
+        </tfoot>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Super</td>
+                <td>Admin</td>
+                <td>superadmin</td>
+                <td>K56LhpR57UyHKBDKScgv/Q==</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Admin</td>
+                <td>EP</td>
+                <td>admin01</td>
+                <td>K56LhpR57UyHKBDKScgv/Q==</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
